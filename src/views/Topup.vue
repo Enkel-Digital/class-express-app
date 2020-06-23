@@ -63,7 +63,7 @@
       class="mx-auto mb-4"
       max-width="calc(100% - 3em)"
       outlined
-      @click="buyPoints(topupOption.id)"
+      @click="attachStripeCheckout(getStripePlanId(i))"
       style="text-align: left;"
     >
       <v-list-item>
@@ -153,6 +153,38 @@ export default {
   methods: {
     logout,
     ...mapActions("points", ["buyPoints"]),
+    getStripePlanId: function (i) {
+      let hardcode_plans = [
+        "sku_HEW3eYuPvS8y5M",
+        "sku_HEW3EWFqEWzCSg",
+        "sku_HEW2W2BNinxyYk",
+      ];
+      return hardcode_plans[i];
+    },
+    attachStripeCheckout(stripe_plan_id) {
+      /* global Stripe */
+      var stripe = Stripe("pk_test_LIc2NCzFeOD5ng6VrGwNE8Dx00Z67P4mCD");
+
+      stripe
+        .redirectToCheckout({
+          lineItems: [{ price: stripe_plan_id, quantity: 1 }],
+          mode: "payment",
+          // Do not rely on the redirect to the successUrl for fulfilling
+          // purchases, customers may not always reach the success_url after
+          // a successful payment.
+          // Instead use one of the strategies described in
+          // https://stripe.com/docs/payments/checkout/fulfillment
+          successUrl: "http://localhost:8080/#/home",
+          cancelUrl: "http://localhost:8080/#/topup",
+        })
+        .then(function (result) {
+          if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer.
+            alert(result.error.message);
+          }
+        });
+    },
   },
 };
 </script>

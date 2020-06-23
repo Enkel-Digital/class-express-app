@@ -20,7 +20,7 @@
             Our Monthly subscription plans gives you more points for less!
             😁💪🏻<br />
             <span class="opacity6 fontsize8">
-              *A month is always 30 days for affordable AND predicatable pricing
+              *A month is always 30 days for affordable AND predictable pricing
             </span>
           </v-list-item-content>
         </v-list-item>
@@ -51,10 +51,11 @@
         v-for="(plan, i) in subscriptionPlans"
         :key="i"
         id="plans-card"
+        stripe_plan_id="getStripePlanId(i)"
         class="mx-auto mb-4"
         max-width="calc(100% - 3em)"
         outlined
-        @click="updatePlan(plan.id)"
+        @click="attachStripeCheckout(getStripePlanId(i))"
       >
         <v-list-item>
           <v-radio :value="plan.id" />
@@ -227,6 +228,41 @@ export default {
     pauseSubscriptionPlan() {
       // @todo Implement this
       alert("This feature is not supported yet!");
+    },
+    log(x) {
+      console.log(x);
+    },
+    getStripePlanId: function (i) {
+      let hardcode_plans = [
+        "plan_HEDADPvhVD1zls",
+        "plan_HED9jNsqacP8sZ",
+        "plan_HED8EQd8RL0AN3",
+      ];
+      return hardcode_plans[i];
+    },
+    attachStripeCheckout(stripe_plan_id) {
+      /* global Stripe */
+      var stripe = Stripe("pk_test_LIc2NCzFeOD5ng6VrGwNE8Dx00Z67P4mCD");
+
+      stripe
+        .redirectToCheckout({
+          lineItems: [{ price: stripe_plan_id, quantity: 1 }],
+          mode: "subscription",
+          // Do not rely on the redirect to the successUrl for fulfilling
+          // purchases, customers may not always reach the success_url after
+          // a successful payment.
+          // Instead use one of the strategies described in
+          // https://stripe.com/docs/payments/checkout/fulfillment
+          successUrl: "http://localhost:8080/#/home",
+          cancelUrl: "http://localhost:8080/#/subscription",
+        })
+        .then(function (result) {
+          if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer.
+            alert(result.error.message);
+          }
+        });
     },
   },
 };
