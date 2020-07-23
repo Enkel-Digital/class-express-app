@@ -1,8 +1,8 @@
 <template>
   <v-responsive id="points-card">
-    <!-- If user already has a plan -->
+    <!-- If user already has a plan and points object is loaded from API -->
     <v-card
-      v-if="current"
+      v-if="current && points"
       class="mx-auto"
       max-width="calc(100% - 3em)"
       outlined
@@ -16,7 +16,8 @@
           </v-list-item-title>
 
           <v-list-item-subtitle>
-            Period ends on: {{ moment.unix(points.period.end).format("L") }}
+            Period ends on:
+            {{ moment.unix(points.period.end).format("DD/MM/YYYY") }}
           </v-list-item-subtitle>
         </v-list-item-content>
 
