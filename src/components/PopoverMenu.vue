@@ -3,10 +3,9 @@
     <v-dialog
       v-model="menu"
       fullscreen
-      hide-overlay
+      overlay-color="#d7d7d7"
+      transition="dialog-bottom-transition"
       :close-on-content-click="false"
-      :nudge-width="200"
-      offset-x
     >
       <template v-slot:activator="{ on }">
         <v-btn color="indigo" dark v-on="on">
@@ -14,76 +13,123 @@
           Filter
         </v-btn>
       </template>
-      <v-card class="mx-auto" max-width="400">
-        <v-toolbar flat color="indigo" dark>
-          <v-btn icon @click="menu = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Filter results</v-toolbar-title>
-        </v-toolbar>
 
-        <v-card-text>
-          <h2 class="title mb-2">Choose Categories</h2>
+      <v-content>
+        <v-card flat color="#d7d7d7">
+          <v-app-bar app flat color="indigo" dark>
+            <v-btn icon @click="menu = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
 
-          <v-chip-group column multiple>
-            <template v-for="item in categories">
-              <v-chip filter outlined :key="item.text">{{ item.text }}</v-chip>
-            </template>
-          </v-chip-group>
-        </v-card-text>
+            <v-toolbar-title class="overline text-center"
+              >Filter
+            </v-toolbar-title>
+            <v-spacer />
+            <v-btn color="white" class="overline" text @click="menu = false"
+              >done</v-btn
+            >
+          </v-app-bar>
 
-        <v-card-text>
-          <h2 class="title mb-2">Choose Location</h2>
+          <v-row dense>
+            <v-col cols="12">
+              <v-card dense class="class-card mx-auto" flat overlined>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="overline text-left"
+                      >Categories</v-list-item-title
+                    >
 
-          <v-chip-group column multiple>
-            <template v-for="item in locations">
-              <v-chip filter outlined :key="item.text">{{ item.text }}</v-chip>
-            </template>
-          </v-chip-group>
-        </v-card-text>
-        <Slider />
-
-        <v-card-text>
-          <h2 class="title mb-2">Choose Points</h2>
-
-          <v-chip-group vcolumn multiple>
-            <template v-for="item in points">
-              <v-chip filter outlined :key="item.text">{{ item.text }}</v-chip>
-            </template>
-          </v-chip-group>
-        </v-card-text>
-        <RangeSlider />
-
-        <v-card-text>
-          <h2 class="title mb-2">Choose</h2>
-          <ais-menu attribute="_tags">
-            <v-chip-group column multiple slot-scope="{ items, refine }">
-              <template v-for="item in items">
-                <v-chip
-                  filter
-                  outlined
-                  :key="item.value"
-                  @click.prevent="refine(item.value)"
-                >
-                  {{ item.label }}
-                </v-chip>
-              </template>
-              <!-- <li>
+                    <ais-menu attribute="_tags">
+                      <v-chip-group
+                        column
+                        active-class="deep-purple--text text--accent-4"
+                        multiple
+                        slot-scope="{ items, refine }"
+                      >
+                        <template v-for="item in items">
+                          <v-chip
+                            small
+                            outlined
+                            :key="item.value"
+                            @click.prevent="refine(item.value)"
+                          >
+                            {{ item.label }}
+                          </v-chip>
+                        </template>
+                        <!-- <li>
                 <button :disabled="!canToggleShowMore" @click="toggleShowMore">
                   {{ isShowingMore ? "Less" : "More" }}
                 </button>
               </li> -->
-            </v-chip-group>
-          </ais-menu>
-        </v-card-text>
+                      </v-chip-group>
+                    </ais-menu>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-card>
+            </v-col>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
+            <v-col cols="12">
+              <v-card dense class="class-card mx-auto" flat overlined>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="overline text-left"
+                      >Location</v-list-item-title
+                    >
 
-          <v-btn text @click="menu = false">Cancel</v-btn>
-          <v-btn color="primary" text @click="menu = false">Save</v-btn>
-        </v-card-actions>
-      </v-card>
+                    <v-chip-group
+                      column
+                      multiple
+                      active-class="deep-purple--text text--accent-4"
+                    >
+                      <template v-for="item in locations">
+                        <v-chip small outlined :key="item.text">{{
+                          item.text
+                        }}</v-chip>
+                      </template>
+                    </v-chip-group>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-card>
+            </v-col>
+
+            <v-col cols="12">
+              <v-card dense class="class-card mx-auto" flat overlined>
+                <Slider />
+              </v-card>
+            </v-col>
+
+            <v-col cols="12">
+              <v-card dense class="class-card mx-auto" flat overlined>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="overline text-left"
+                      >Points</v-list-item-title
+                    >
+
+                    <v-chip-group
+                      active-class="deep-purple--text text--accent-4"
+                      column
+                      multiple
+                    >
+                      <template v-for="item in points">
+                        <v-chip small outlined :key="item.text">{{
+                          item.text
+                        }}</v-chip>
+                      </template>
+                    </v-chip-group>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-card>
+            </v-col>
+
+            <v-col cols="12">
+              <v-card dense class="class-card mx-auto" flat overlined>
+                <RangeSlider />
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-content>
 
       <!-- <v-list>
         <v-list-item>
@@ -192,3 +238,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.class-card {
+  border-radius: 0px;
+}
+</style>
