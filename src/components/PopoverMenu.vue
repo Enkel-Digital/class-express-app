@@ -1,7 +1,9 @@
 <template>
   <div class="text-center">
-    <v-menu
+    <v-dialog
       v-model="menu"
+      fullscreen
+      hide-overlay
       :close-on-content-click="false"
       :nudge-width="200"
       offset-x
@@ -98,7 +100,7 @@
           <v-list-item-title>hints</v-list-item-title>
         </v-list-item>
       </v-list> -->
-    </v-menu>
+    </v-dialog>
   </div>
 </template>
 
