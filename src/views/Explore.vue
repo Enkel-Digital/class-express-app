@@ -1,5 +1,5 @@
 <template>
-  <v-content id="explore">
+  <v-main id="explore">
     <v-app-bar app flat color="white">
       <v-toolbar-title style="font-weight: bold;">Explore</v-toolbar-title>
     </v-app-bar>
@@ -34,7 +34,7 @@
                         outlined
                         :ripple="false"
                       >
-                        <v-row class="justify-center align-center">
+                        <v-row>
                           <v-col>
                             <v-list-item-content>
                               <v-list-item-title>
@@ -51,14 +51,16 @@
                           </v-col>
 
                           <v-col>
-                            <v-responsive id="class-image-container">
-                              <!-- @todo Update API to return an array from DB and Change to a image carousel -->
-                              <!-- <v-img id="class-image" :src="clas.pictureSources[0]" /> -->
-                              <v-img
-                                id="class-image"
-                                :src="item.pictureSources[0]"
-                              />
-                            </v-responsive>
+                            <!-- <v-responsive id="class-image-container"> -->
+                            <!-- @todo Update API to return an array from DB and Change to a image carousel -->
+                            <!-- <v-img id="class-image" :src="clas.pictureSources[0]" /> -->
+                            <v-img
+                              max-height="15vh"
+                              max-width="15vh"
+                              id="class-image"
+                              :src="item.pictureSources[0]"
+                            />
+                            <!-- </v-responsive> -->
 
                             <v-btn icon small @click="toggleFavourite(item.id)">
                               <v-icon color="red">mdi-heart</v-icon>
@@ -94,7 +96,7 @@
         </div>
       </div>
     </ais-instant-search>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
@@ -146,16 +148,6 @@ export default {
   font-style: normal;
 }
 
-#class-image-container {
-  /*
-    General height guidelines for the image loaded
-    Max height is used to prevent the image being used to be too big
-    Min height ensures image will not collapse on itself into the height of the back button
-  */
-  max-height: 15vh;
-  max-width: 15vh;
-  min-height: 10vh;
-}
 .class-card {
   display: inline-block;
   margin-bottom: 0.5em;

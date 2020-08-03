@@ -1,5 +1,5 @@
 <template>
-  <v-content class="topup">
+  <v-main class="topup">
     <v-app-bar app color="orange lighten-1" flat dark fixed>
       <BackBtn />
       <v-toolbar-title>Topup</v-toolbar-title>
@@ -22,6 +22,7 @@
       outlined
       style="text-align: left;"
       :to="{ name: 'subscription' }"
+      replace
     >
       <v-list-item>
         <v-list-item-content>
@@ -77,6 +78,7 @@
       outlined
       style="text-align: left;"
       :to="{ name: 'subscription' }"
+      replace
     >
       <v-list-item>
         <v-list-item-content>
@@ -99,6 +101,7 @@
       outlined
       style="text-align: left;"
       :to="{ name: 'faq' }"
+      replace
     >
       <v-list-item>
         <v-list-item-content>
@@ -110,7 +113,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-card>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
