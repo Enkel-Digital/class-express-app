@@ -17,10 +17,6 @@
       <v-content>
         <v-card flat color="#d7d7d7">
           <v-app-bar app flat color="indigo" dark>
-            <v-btn icon @click="menu = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-
             <v-toolbar-title class="overline text-center"
               >Filter
             </v-toolbar-title>
@@ -95,30 +91,6 @@
             <v-col cols="12">
               <v-card dense class="class-card mx-auto" flat overlined>
                 <Slider />
-              </v-card>
-            </v-col>
-
-            <v-col cols="12">
-              <v-card dense class="class-card mx-auto" flat overlined>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="overline text-left"
-                      >Points</v-list-item-title
-                    >
-
-                    <v-chip-group
-                      active-class="deep-purple--text text--accent-4"
-                      column
-                      multiple
-                    >
-                      <template v-for="item in points">
-                        <v-chip small outlined :key="item.text">{{
-                          item.text
-                        }}</v-chip>
-                      </template>
-                    </v-chip-group>
-                  </v-list-item-content>
-                </v-list-item>
               </v-card>
             </v-col>
 

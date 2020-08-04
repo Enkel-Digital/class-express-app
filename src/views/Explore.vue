@@ -9,6 +9,7 @@
         <div class="search-panel">
           <div class="search-panel__results">
             <ais-search-box placeholder="Search here…" class="searchbox" />
+            <!-- <PopoverMenu /> -->
             <FilterMenu />
 
             <!-- @todo: Mix Partner and Class card together -->
@@ -117,6 +118,7 @@ import "instantsearch.css/themes/algolia.css";
 import AppInfiniteHits from "../components/InfiniteHits";
 import Categories from "./Categories";
 import FilterMenu from "../components/FilterMenu";
+// import PopoverMenu from "../components/PopoverMenu.vue";
 
 export default {
   name: "explore",
@@ -129,6 +131,7 @@ export default {
     AisStateResults,
     AisHighlight,
     //AisHits,
+    // PopoverMenu,
     //AisConfigure,
   },
   data() {
